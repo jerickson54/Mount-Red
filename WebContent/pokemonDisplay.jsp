@@ -235,6 +235,7 @@
 
 <div class="w3-light-grey" style = "width:750px">
   <div class="w3-aqua" style="height:25px;width:${(currentPoke.attack/255)*700}px"> ${currentPoke.attack}</div>
+  <input type = "hidden" value = "${currentPoke.attack}" id = "baseAttack"/>
 </div>
 
 <div id="slidecontainer">
@@ -249,6 +250,7 @@
 
 <div class="w3-light-grey" style = "width:750px">
   <div class="w3-aqua" style="height:25px;width:${(currentPoke.defense/255)*700}px"> ${currentPoke.defense}</div>
+  <input type = "hidden" value = "${currentPoke.defense}" id = "baseDefense"/>
 </div>
 
 <div id="slidecontainer">
@@ -263,6 +265,7 @@
 
 <div class="w3-light-grey" style = "width:750px">
   <div class="w3-aqua" style="height:25px;width:${(currentPoke.special_attack/255)*700}px"> ${currentPoke.special_attack}</div>
+  <input type = "hidden" value = "${currentPoke.special_attack}" id = "baseSpecialAttack"/>
 </div>
 
 
@@ -278,6 +281,7 @@
 
 <div class="w3-light-grey" style = "width:750px">
   <div class="w3-aqua" style="height:25px;width:${(currentPoke.special_defense/255)*700}px"> ${currentPoke.special_defense}</div>
+  <input type = "hidden" value = "${currentPoke.special_defense}" id = "baseSpecialDefense"/>
 </div>
 
 <div id="slidecontainer">
@@ -292,6 +296,7 @@
 
 <div class="w3-light-grey" style = "width:750px">
   <div class="w3-aqua" style="height:25px;width:${(currentPoke.speed/255)*700}px"> ${currentPoke.speed}</div>
+  <input type = "hidden" value = "${currentPoke.speed}" id = "baseSpeed"/>
 </div>
 
 </label>
@@ -327,11 +332,21 @@ var isNegativeSpeed = false;
 
 var finalHp = document.getElementById("hpStat");
 var baseHp = document.getElementById("baseHp").value;
+
 var finalAttack = document.getElementById("attackStat");
+var baseAttack = document.getElementById("baseAttack").value;
+
 var finalDefense = document.getElementById("defenseStat");
+var baseDefense = document.getElementById("baseDefense").value;
+
 var finalSpecialAttack = document.getElementById("specialAttackStat");
+var baseSpecialAttack = document.getElementById("baseSpecialAttack").value;
+
 var finalSpecialDefense = document.getElementById("specialDefenseStat");
+var baseSpecialDefense = document.getElementById("baseSpecialDefense").value;
+
 var finalSpeed = document.getElementById("speedStat");
+var baseSpeed = document.getElementById("baseSpeed").value;
 
 var attackNatureValue = 1;
 var defenseNatureValue = 1;
@@ -361,6 +376,7 @@ outputAttack.innerHTML = sliderAttack.value;
 
 sliderAttack.oninput = function() {
 	outputAttack.value = this.value;
+	finalAttack.value = calcStat(baseAttack,document.getElementById("attackDisplay").value,document.getElementById("attackIv").value,document.getElementById("level").value,attackNatureValue);
 }
 
 outputAttack.oninput = function(){
@@ -369,6 +385,7 @@ outputAttack.oninput = function(){
 	isNegativeAttack = outputAttack.value.includes("-");
 	determineNature(isPositiveAttack,isPositiveDefense,isPositiveSpecialAttack,isPositiveSpecialDefense,isPositiveSpeed,
 			isNegativeAttack,isNegativeDefense,isNegativeSpecialAttack,isNegativeSpecialDefense,isNegativeSpeed);
+	finalAttack.value = calcStat(baseAttack,document.getElementById("attackDisplay").value,document.getElementById("attackIv").value,document.getElementById("level").value,attackNatureValue);
 }
 
 
@@ -378,6 +395,7 @@ outputDefense.innerHTML = sliderDefense.value;
 
 sliderDefense.oninput = function() {
 	outputDefense.value = this.value;
+	finalDefense.value = calcStat(baseDefense,document.getElementById("defenseDisplay").value,document.getElementById("defenseIv").value,document.getElementById("level").value,defenseNatureValue);
 }
 
 outputDefense.oninput = function(){
@@ -386,6 +404,7 @@ outputDefense.oninput = function(){
 	isNegativeDefense = outputDefense.value.includes("-");
 	determineNature(isPositiveAttack,isPositiveDefense,isPositiveSpecialAttack,isPositiveSpecialDefense,isPositiveSpeed,
 			isNegativeAttack,isNegativeDefense,isNegativeSpecialAttack,isNegativeSpecialDefense,isNegativeSpeed);
+	finalDefense.value = calcStat(baseDefense,document.getElementById("defenseDisplay").value,document.getElementById("defenseIv").value,document.getElementById("level").value,defenseNatureValue);
 }
 
 var sliderSpecialAttack = document.getElementById("specialAttackEv");
@@ -394,6 +413,7 @@ outSpecialAttack.innerHTML = sliderSpecialAttack.value;
 
 sliderSpecialAttack.oninput = function() {
 	outSpecialAttack.value = this.value;
+	finalSpecialAttack.value = calcStat(baseSpecialAttack,document.getElementById("specialAttackDisplay").value,document.getElementById("specialAttackIv").value,document.getElementById("level").value,specialAttackNatureValue);
 }
 
 outSpecialAttack.oninput = function(){
@@ -403,6 +423,7 @@ outSpecialAttack.oninput = function(){
 	isNegativeSpecialAttack = outSpecialAttack.value.includes("-");
 	determineNature(isPositiveAttack,isPositiveDefense,isPositiveSpecialAttack,isPositiveSpecialDefense,isPositiveSpeed,
 			isNegativeAttack,isNegativeDefense,isNegativeSpecialAttack,isNegativeSpecialDefense,isNegativeSpeed);
+	finalSpecialAttack.value = calcStat(baseSpecialAttack,document.getElementById("specialAttackDisplay").value,document.getElementById("specialAttackIv").value,document.getElementById("level").value,specialAttackNatureValue);
 }
 
 var sliderSpecialDefense = document.getElementById("specialDefenseEv");
@@ -411,6 +432,7 @@ outputSpecialDefense.innerHTML = sliderSpecialDefense.value;
 
 sliderSpecialDefense.oninput = function() {
 	outputSpecialDefense.value = this.value;
+	finalSpecialDefense.value = calcStat(baseSpecialDefense,document.getElementById("specialDefenseDisplay").value,document.getElementById("specialDefenseIv").value,document.getElementById("level").value,specialDefenseNatureValue);
 }
 
 outputSpecialDefense.oninput = function(){
@@ -420,6 +442,7 @@ outputSpecialDefense.oninput = function(){
 	isNegativeSpecialDefense = outputSpecialDefense.value.includes("-");
 	determineNature(isPositiveAttack,isPositiveDefense,isPositiveSpecialAttack,isPositiveSpecialDefense,isPositiveSpeed,
 			isNegativeAttack,isNegativeDefense,isNegativeSpecialAttack,isNegativeSpecialDefense,isNegativeSpeed);
+	finalSpecialDefense.value = calcStat(baseSpecialDefense,document.getElementById("specialDefenseDisplay").value,document.getElementById("specialDefenseIv").value,document.getElementById("level").value,specialDefenseNatureValue);
 }
 
 var sliderSpeed = document.getElementById("speedEv");
@@ -428,6 +451,7 @@ outputSpeed.innerHTML = sliderSpeed.value;
 
 sliderSpeed.oninput = function() {
 	outputSpeed.value = this.value;
+	finalSpeed.value = calcStat(baseSpeed,document.getElementById("speedDisplay").value,document.getElementById("speedIv").value,document.getElementById("level").value,speedNatureValue);
 }
 
 outputSpeed.oninput = function(){
@@ -437,10 +461,12 @@ outputSpeed.oninput = function(){
 	isNegativeSpeed = outputSpeed.value.includes("-");
 	determineNature(isPositiveAttack,isPositiveDefense,isPositiveSpecialAttack,isPositiveSpecialDefense,isPositiveSpeed,
 			isNegativeAttack,isNegativeDefense,isNegativeSpecialAttack,isNegativeSpecialDefense,isNegativeSpeed);
+	finalSpeed.value = calcStat(baseSpeed,document.getElementById("speedDisplay").value,document.getElementById("speedIv").value,document.getElementById("level").value,speedNatureValue);
 }
 
 var nature = document.getElementById("nature");
 nature.oninput = function(){
+	
 	
 	if(nature.value == "modest"){
 		containsPlusMinus(outputAttack,outputDefense,outSpecialAttack,outputSpecialDefense,outputSpeed);
@@ -448,6 +474,11 @@ nature.oninput = function(){
 		specialAttackNatureValue = 1.1;
 		outputAttack.value = outputAttack.value.concat("-");
 		attackNatureValue = .9;
+		
+		defenseNatureValue = 1;
+		specialDefenseNatureValue = 1;
+		speedNatureValue = 1;
+		
 	}
 	
 	if(nature.value == "mild"){
@@ -456,6 +487,12 @@ nature.oninput = function(){
 		specialAttackNatureValue = 1.1;
 		outputDefense.value = outputDefense.value.concat("-");
 		defenseNatureValue = .9;
+		
+		
+		specialDefenseNatureValue = 1;
+		speedNatureValue = 1;
+		attackNatureValue = 1;
+		
 	}
 	
 	if(nature.value == "rash"){
@@ -464,6 +501,11 @@ nature.oninput = function(){
 		specialAttackNatureValue = 1.1;
 		outputSpecialDefense.value = outputSpecialDefense.value.concat("-");
 		specialDefenseNatureValue = .9;
+		
+		defenseNatureValue = 1;
+		speedNatureValue = 1;
+		attackNatureValue = 1;
+		
 	}
 	
 	if(nature.value == "quiet"){
@@ -472,6 +514,10 @@ nature.oninput = function(){
 		specialAttackNatureValue = 1.1;
 		outputSpeed.value = outputSpeed.value.concat("-");
 		speedNatureValue = .9;
+		
+		defenseNatureValue = 1;
+		specialDefenseNatureValue = 1;
+		attackNatureValue = 1;
 	}
 	
 	if(nature.value == "lonely"){
@@ -480,6 +526,11 @@ nature.oninput = function(){
 		attackNatureValue = 1.1;
 		outputDefense.value = outputDefense.value.concat("-");
 		defenseNatureValue = .9;
+		
+
+		specialDefenseNatureValue = 1;
+		speedNatureValue = 1;
+		specialAttackNatureValue = 1;
 	}
 	
 	if(nature.value == "brave"){
@@ -488,6 +539,10 @@ nature.oninput = function(){
 		attackNatureValue = 1.1;
 		outputSpeed.value = outputSpeed.value.concat("-");
 		speedNatureValue = .9;
+		
+		defenseNatureValue = 1;
+		specialDefenseNatureValue = 1;
+		specialAttackNatureValue = 1;
 	}
 	
 	if(nature.value == "adamant"){
@@ -496,6 +551,10 @@ nature.oninput = function(){
 		attackNatureValue = 1.1;
 		outSpecialAttack.value = outSpecialAttack.value.concat("-");
 		specialAttackNatureValue = .9;
+		
+		defenseNatureValue = 1;
+		specialDefenseNatureValue = 1;
+		speedNatureValue = 1;
 	}
 	
 	if(nature.value == "naughty"){
@@ -504,6 +563,10 @@ nature.oninput = function(){
 		attackNatureValue = 1.1;
 		outputSpecialDefense.value = outputSpecialDefense.value.concat("-");
 		specialDefenseNatureValue = .9;
+		
+		defenseNatureValue = 1;
+		speedNatureValue = 1;
+		specialAttackNatureValue = 1;
 	}
 	
 	if(nature.value == "bold"){
@@ -512,6 +575,11 @@ nature.oninput = function(){
 		defenseNatureValue = 1.1;
 		outputAttack.value = outputAttack.value.concat("-");
 		attackNatureValue = .9;
+		
+
+		specialDefenseNatureValue = 1;
+		speedNatureValue = 1;
+		specialAttackNatureValue = 1;
 	}
 	
 	if(nature.value == "relaxed"){
@@ -520,6 +588,11 @@ nature.oninput = function(){
 		defenseNatureValue = 1.1;
 		outputSpeed.value = outputSpeed.value.concat("-");
 		speedNatureValue = .9;
+		
+
+		specialDefenseNatureValue = 1;
+		attackNatureValue = 1;
+		specialAttackNatureValue = 1;
 	}
 	
 	if(nature.value == "impish"){
@@ -528,6 +601,12 @@ nature.oninput = function(){
 		defenseNatureValue = 1.1;
 		outSpecialAttack.value = outSpecialAttack.value.concat("-");
 		specialAttackNatureValue = .9;
+		
+		
+		specialDefenseNatureValue = 1;
+		speedNatureValue = 1;
+		attackNatureValue = 1;
+	
 	}
 	
 	if(nature.value == "lax"){
@@ -536,6 +615,12 @@ nature.oninput = function(){
 		defenseNatureValue = 1.1;
 		outputSpecialDefense.value = outputSpecialDefense.value.concat("-");
 		specialDefenseNatureValue = .9;
+		
+		
+		
+		speedNatureValue = 1;
+		attackNatureValue = 1;
+		specialAttackNatureValue = 1;
 	}
 	
 	if(nature.value == "timid"){
@@ -544,6 +629,10 @@ nature.oninput = function(){
 		speedNatureValue = 1.1;
 		outputAttack.value = outputAttack.value.concat("-");
 		attackNatureValue = .9;
+		
+		defenseNatureValue = 1;
+		specialDefenseNatureValue = 1;
+		specialAttackNatureValue = 1;
 	}
 	
 	if(nature.value == "hasty"){
@@ -552,6 +641,10 @@ nature.oninput = function(){
 		speedNatureValue = 1.1;
 		outputDefense.value = outputDefense.value.concat("-");
 		defenseNatureValue = .9;
+		
+		specialDefenseNatureValue = 1;
+		attackNatureValue = 1;
+		specialAttackNatureValue = 1;
 	}
 	
 	if(nature.value == "jolly"){
@@ -560,6 +653,10 @@ nature.oninput = function(){
 		speedNatureValue = 1.1;
 		outSpecialAttack.value = outSpecialAttack.value.concat("-");
 		specialAttackNatureValue = .9;
+		
+		defenseNatureValue = 1;
+		specialDefenseNatureValue = 1;
+		attackNatureValue = 1;
 	}
 	
 	if(nature.value == "naive"){
@@ -568,6 +665,10 @@ nature.oninput = function(){
 		speedNatureValue = 1.1;
 		outputSpecialDefense.value = outputSpecialDefense.value.concat("-");
 		specialDefenseNatureValue = .9;
+		
+		defenseNatureValue = 1;
+		attackNatureValue = 1;
+		specialAttackNatureValue = 1;
 	}
 	
 	if(nature.value == "calm"){
@@ -576,6 +677,10 @@ nature.oninput = function(){
 		specialDefenseNatureValue = 1.1;
 		outputAttack.value = outputAttack.value.concat("-");
 		attackNatureValue = .9;
+		
+		defenseNatureValue = 1;
+		speedNatureValue = 1;
+		specialAttackNatureValue = 1;
 	}
 	
 	if(nature.value == "gentle"){
@@ -584,6 +689,12 @@ nature.oninput = function(){
 		specialDefenseNatureValue = 1.1;
 		outputDefense.value = outputDefense.value.concat("-");
 		defenseNatureValue = .9;
+		
+
+
+		speedNatureValue = 1;
+		attackNatureValue = 1;
+		specialAttackNatureValue = 1;
 	}
 	
 	if(nature.value == "sassy"){
@@ -592,6 +703,10 @@ nature.oninput = function(){
 		specialDefenseNatureValue = 1.1;
 		outputSpeed.value = outputSpeed.value.concat("-");
 		speedNatureValue = .9;
+		
+		defenseNatureValue = 1;
+		attackNatureValue = 1;
+		specialAttackNatureValue = 1;
 	}
 	
 	if(nature.value == "careful"){
@@ -600,7 +715,65 @@ nature.oninput = function(){
 		specialDefenseNatureValue = 1.1;
 		outSpecialAttack.value = outSpecialAttack.value.concat("-");
 		specialAttackNatureValue = .9;
+		
+		defenseNatureValue = 1;
+		speedNatureValue = 1;
+		attackNatureValue = 1;
+		
 	}
+	
+	if(nature.value == "hardy"){
+	containsPlusMinus(outputAttack,outputDefense,outSpecialAttack,outputSpecialDefense,outputSpeed);
+	defenseNatureValue = 1;
+	specialDefenseNatureValue = 1;
+	speedNatureValue = 1;
+	attackNatureValue = 1;
+	specialAttackNatureValue = 1;
+	}
+	
+	if(nature.value == "docile"){
+		containsPlusMinus(outputAttack,outputDefense,outSpecialAttack,outputSpecialDefense,outputSpeed);
+		defenseNatureValue = 1;
+		specialDefenseNatureValue = 1;
+		speedNatureValue = 1;
+		attackNatureValue = 1;
+		specialAttackNatureValue = 1;
+		}
+	
+	if(nature.value == "serious"){
+		containsPlusMinus(outputAttack,outputDefense,outSpecialAttack,outputSpecialDefense,outputSpeed);
+		defenseNatureValue = 1;
+		specialDefenseNatureValue = 1;
+		speedNatureValue = 1;
+		attackNatureValue = 1;
+		specialAttackNatureValue = 1;
+		}
+	
+	if(nature.value == "bashful"){
+		containsPlusMinus(outputAttack,outputDefense,outSpecialAttack,outputSpecialDefense,outputSpeed);
+		defenseNatureValue = 1;
+		specialDefenseNatureValue = 1;
+		speedNatureValue = 1;
+		attackNatureValue = 1;
+		specialAttackNatureValue = 1;
+		}
+	
+	if(nature.value == "quirky"){
+		containsPlusMinus(outputAttack,outputDefense,outSpecialAttack,outputSpecialDefense,outputSpeed);
+		defenseNatureValue = 1;
+		specialDefenseNatureValue = 1;
+		speedNatureValue = 1;
+		attackNatureValue = 1;
+		specialAttackNatureValue = 1;
+		}
+	
+	 finalHp.value = calcHpStat(baseHp,document.getElementById("hpDisplay").value,document.getElementById("hpIv").value,document.getElementById("level").value);
+	finalAttack.value = calcStat(baseAttack,document.getElementById("attackDisplay").value,document.getElementById("attackIv").value,document.getElementById("level").value,attackNatureValue);
+	finalDefense.value = calcStat(baseDefense,document.getElementById("defenseDisplay").value,document.getElementById("defenseIv").value,document.getElementById("level").value,defenseNatureValue);
+	finalSpecialAttack.value = calcStat(baseSpecialAttack,document.getElementById("specialAttackDisplay").value,document.getElementById("specialAttackIv").value,document.getElementById("level").value,specialAttackNatureValue);
+	finalSpecialDefense.value = calcStat(baseSpecialDefense,document.getElementById("specialDefenseDisplay").value,document.getElementById("specialDefenseIv").value,document.getElementById("level").value,specialDefenseNatureValue);
+	finalSpeed.value = calcStat(baseSpeed,document.getElementById("speedDisplay").value,document.getElementById("speedIv").value,document.getElementById("level").value,speedNatureValue);
+
 }
 
 function containsPlusMinus(a,d,spA,spD,spe){
@@ -674,32 +847,14 @@ if(spe && nspD)
 }
 
 function calcStat(baseStat,ev,iv,level,nature){
-	
-		
-	//var finalValue = ((((iv + 2 * baseStat + (ev/4))*level/100) + 5) *nature);
 
-	return finalValue;
+	return Math.floor(((((parseInt(iv) + (2 * parseInt(baseStat)) + (parseInt(ev)/4))*parseInt(level)/100) + 5) *nature));;
 }
 
 function calcHpStat(baseStat,ev,iv,level){
 	
-	console.log("");
-	console.log(baseStat);
-	console.log(ev);
-	console.log(iv);
-	console.log(level);
-	
-	var multiplier = 2 * baseStat;
-	var m = ev/4
-	var l = level/100;
-	var finalValue = (iv+multiplier +m);
-	console.log(finalValue);
-	
-	 finalValue = (((iv+multiplier +m)*l) + 10 +level);
-	
-	console.log(finalValue);
 
-	return finalValue;
+	return Math.floor((((parseInt(iv)+(2 * parseInt(baseStat)) +(parseInt(ev)/4))*parseInt(level)/100) + 10 +parseInt(level)));
 }
 
 
