@@ -100,7 +100,7 @@ public class learnableMovesDAO {
 		
 		Set <learnableMoves> noDuplicatesPlease = new HashSet<learnableMoves>();
 		//make sure you override equals and hashcode. otherwise comparison for set does not work
-	
+		
 		
 		BufferedReader br = null;
 		String line = "";

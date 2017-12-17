@@ -17,7 +17,7 @@
 <style>
 
 #slidecontainer {
-    width: 850px !important;
+    width: 1200px !important;
 }
 
 .slider {
@@ -73,13 +73,14 @@
 
 
 <label> Pokemon
-<input type = "text" name = "pokemonName" value = "${currentPoke.identifier}"/>
+<input type = "text" name = "pokemonName" value = "${currentPoke.identifier}" id = "pokemonName"/>
 </label>
 
 
 <label> Nickname
-<input type = "text" name = "nickname" />
+<input type = "text" name = "nickname" id = "nickname" />
 </label>
+
 
 <label> Abilities
 <select id = "ability" name = ability>
@@ -127,6 +128,20 @@
 
 </label>
 
+<label> Level
+<select class="js-example-basic-single" name = "level" id = "level" style = "width:100%">
+<c:forEach begin = "0" end = "100" varStatus = "i">
+<c:if test = "${i.index == 100}">
+<option value = "${i.index}" selected = "selected"> ${i.index}</option>
+</c:if>
+<c:if test = "${i.index < 100}">
+<option value = "${i.index}"> ${i.index}</option>
+</c:if>
+
+</c:forEach>
+</select>
+</label>
+
 <label> IVs:
 <label>HP
 <input type = "text" name = "hpIv" value = "31" style="width:30px;" id = "hpIv"/>
@@ -146,82 +161,6 @@
 <label>Speed
 <input type = "text" name = "speedIv" value = "31" style="width:30px;" id = "speedIv"/>
 </label>
-</label>
-
-
-</div>
-
-<label> EV
-<div id="slidecontainer">
-<label> HP
-  <input type="range" min="0" max="252" value="0" class="slider" id="hpEv">
-  <!--  <p>Value: <span id="hpDisplay"></span></p>-->
-</label>
-  <input type = "text" id = "hpDisplay" name = "hpEVS" value = "0" style ="width:48px;"/>
-</div>
-
-
-<div class="w3-light-grey" style = "width:750px">
-  <div class="w3-aqua" style="height:25px;width:${(currentPoke.hp/255)*700}px"> ${currentPoke.hp}</div>
-</div>
-
-
-<div id="slidecontainer">
-<label> Attack
-  <input type="range" min="0" max="252" value="0" class="slider" id="attackEv">
-</label>
-  <input type = "text" id = "attackDisplay" name = "attackDisplay" value = "0" style ="width:48px;"/>
-</div>
-
-<div class="w3-light-grey" style = "width:750px">
-  <div class="w3-aqua" style="height:25px;width:${(currentPoke.attack/255)*700}px"> ${currentPoke.attack}</div>
-</div>
-
-<div id="slidecontainer">
-<label> Defense
-  <input type="range" min="0" max="252" value="0" class="slider" id="defenseEv">
-</label>
-<input type = "text" id = "defenseDisplay" name = "defenseDisplay" value = "0" style ="width:48px;"/>
-</div>
-
-<div class="w3-light-grey" style = "width:750px">
-  <div class="w3-aqua" style="height:25px;width:${(currentPoke.defense/255)*700}px"> ${currentPoke.defense}</div>
-</div>
-
-<div id="slidecontainer">
-<label> Special Attack
-  <input type="range" min="0" max="252" value="0" class="slider" id="specialAttackEv">
-</label>
- <input type = "text" id = "specialAttackDisplay" name = "specialAttackDisplay" value = "0" style ="width:48px;"/>
-</div>
-
-<div class="w3-light-grey" style = "width:750px">
-  <div class="w3-aqua" style="height:25px;width:${(currentPoke.special_attack/255)*700}px"> ${currentPoke.special_attack}</div>
-</div>
-
-
-<div id="slidecontainer">
-<label> Special Defense
-  <input type="range" min="0" max="252" value="0" class="slider" id="specialDefenseEv">
-</label>
- <input type = "text" id = "specialDefenseDisplay" name = "specialDefenseDisplay" value = "0" style ="width:48px;"/>
-</div>
-
-<div class="w3-light-grey" style = "width:750px">
-  <div class="w3-aqua" style="height:25px;width:${(currentPoke.special_defense/255)*700}px"> ${currentPoke.special_defense}</div>
-</div>
-
-<div id="slidecontainer">
-<label> Speed
-  <input type="range" min="0" max="252" value="0" class="slider" id="speedEv">
-</label>
- <input type = "text" id = "speedDisplay" name = "speedDisplay" value = "0" style ="width:48px;"/>
-</div>
-
-<div class="w3-light-grey" style = "width:750px">
-  <div class="w3-aqua" style="height:25px;width:${(currentPoke.speed/255)*700}px"> ${currentPoke.speed}</div>
-</div>
-
 </label>
 
 <label> Nature
@@ -258,6 +197,114 @@
 
 </label>
 
+</div>
+
+
+
+
+ 
+<label> EV
+<div id="slidecontainer">
+<label> HP
+  <input type="range" min="0" max="252" value="0" class="slider" id="hpEv">
+  <!--  <p>Value: <span id="hpDisplay"></span></p>-->
+</label>
+  <input type = "text" id = "hpDisplay" name = "hpEVS" value = "0" style ="width:48px;"/>
+   <label> HP:
+    <input type = "text" id = "hpStat" name = "hpStat" value = "" style ="width:48px; background-color : #000000; color:#00ff00;" readonly/>
+    </label>
+</div>
+
+
+<div class="w3-light-grey" style = "width:750px">
+  <div class="w3-aqua" style="height:25px;width:${(currentPoke.hp/255)*700}px"> ${currentPoke.hp}</div>
+  <input type = "hidden" value = "${currentPoke.hp}" id = "baseHp"/>
+</div>
+
+
+
+<div id="slidecontainer">
+<label> Attack
+  <input type="range" min="0" max="252" value="0" class="slider" id="attackEv">
+</label>
+  <input type = "text" id = "attackDisplay" name = "attackDisplay" value = "0" style ="width:48px;"/>
+  <label> Attack:
+    <input type = "text" id = "attackStat" name = "attackStat" value = "" style ="width:48px; background-color : #000000; color:#00ff00;" readonly/>
+    </label>
+</div>
+
+<div class="w3-light-grey" style = "width:750px">
+  <div class="w3-aqua" style="height:25px;width:${(currentPoke.attack/255)*700}px"> ${currentPoke.attack}</div>
+</div>
+
+<div id="slidecontainer">
+<label> Defense
+  <input type="range" min="0" max="252" value="0" class="slider" id="defenseEv">
+</label>
+<input type = "text" id = "defenseDisplay" name = "defenseDisplay" value = "0" style ="width:48px;"/>
+ <label> Defense:
+    <input type = "text" id = "defenseStat" name = "defenseStat" value = "" style ="width:48px; background-color : #000000; color:#00ff00;" readonly/>
+    </label>
+</div>
+
+<div class="w3-light-grey" style = "width:750px">
+  <div class="w3-aqua" style="height:25px;width:${(currentPoke.defense/255)*700}px"> ${currentPoke.defense}</div>
+</div>
+
+<div id="slidecontainer">
+<label> Special Attack
+  <input type="range" min="0" max="252" value="0" class="slider" id="specialAttackEv">
+</label>
+ <input type = "text" id = "specialAttackDisplay" name = "specialAttackDisplay" value = "0" style ="width:48px;"/>
+  <label> Special Attack:
+    <input type = "text" id = "specialAttackStat" name = "specialAttackStat" value = "" style ="width:48px; background-color : #000000; color:#00ff00;" readonly/>
+    </label>
+</div>
+
+<div class="w3-light-grey" style = "width:750px">
+  <div class="w3-aqua" style="height:25px;width:${(currentPoke.special_attack/255)*700}px"> ${currentPoke.special_attack}</div>
+</div>
+
+
+<div id="slidecontainer">
+<label> Special Defense
+  <input type="range" min="0" max="252" value="0" class="slider" id="specialDefenseEv">
+</label>
+ <input type = "text" id = "specialDefenseDisplay" name = "specialDefenseDisplay" value = "0" style ="width:48px;"/>
+ <label> Special Defense:
+    <input type = "text" id = "specialDefenseStat" name = "specialDefenseStat" value = "" style ="width:48px; background-color : #000000; color:#00ff00;" readonly/>
+    </label>
+</div>
+
+<div class="w3-light-grey" style = "width:750px">
+  <div class="w3-aqua" style="height:25px;width:${(currentPoke.special_defense/255)*700}px"> ${currentPoke.special_defense}</div>
+</div>
+
+<div id="slidecontainer">
+<label> Speed
+  <input type="range" min="0" max="252" value="0" class="slider" id="speedEv">
+</label>
+ <input type = "text" id = "speedDisplay" name = "speedDisplay" value = "0" style ="width:48px;"/>
+ <label> Speed:
+    <input type = "text" id = "speedStat" name = "speedStat" value = "" style ="width:48px; background-color : #000000; color:#00ff00;" readonly/>
+    </label>
+</div>
+
+<div class="w3-light-grey" style = "width:750px">
+  <div class="w3-aqua" style="height:25px;width:${(currentPoke.speed/255)*700}px"> ${currentPoke.speed}</div>
+</div>
+
+</label>
+
+<!-- 
+
+Hit Points:
+           ( (IV + 2 * BaseStat + (EV/4) ) * Level/100 ) + 10 + Level
+
+Attack, Defense, Speed, Sp. Attack, Sp. Defense:
+           (((IV + 2 * BaseStat + (EV/4) ) * Level/100 ) + 5) * Nature Value
+ -->
+
 <script>
 
 $(document).ready(function() {
@@ -278,6 +325,20 @@ var isNegativeSpecialAttack = false;
 var isNegativeSpecialDefense = false;
 var isNegativeSpeed = false;
 
+var finalHp = document.getElementById("hpStat");
+var baseHp = document.getElementById("baseHp").value;
+var finalAttack = document.getElementById("attackStat");
+var finalDefense = document.getElementById("defenseStat");
+var finalSpecialAttack = document.getElementById("specialAttackStat");
+var finalSpecialDefense = document.getElementById("specialDefenseStat");
+var finalSpeed = document.getElementById("speedStat");
+
+var attackNatureValue = 1;
+var defenseNatureValue = 1;
+var specialAttackNatureValue = 1;
+var specialDefenseNatureValue = 1;
+var speedNatureValue = 1;
+
 
 var sliderHp = document.getElementById("hpEv");
 var outputHp = document.getElementById("hpDisplay");
@@ -285,10 +346,12 @@ outputHp.innerHTML = sliderHp.value;
 
 sliderHp.oninput = function() {
   outputHp.value = this.value;
+  finalHp.value = calcHpStat(baseHp,document.getElementById("hpDisplay").value,document.getElementById("hpIv").value,document.getElementById("level").value);
 }
 
 outputHp.oninput = function(){
 	sliderHp.value = outputHp.value;
+	finalHp.value = calcHpStat(baseHp,document.getElementById("hpDisplay").value,document.getElementById("hpIv").value,document.getElementById("level").value);
 }
 
 
@@ -382,121 +445,161 @@ nature.oninput = function(){
 	if(nature.value == "modest"){
 		containsPlusMinus(outputAttack,outputDefense,outSpecialAttack,outputSpecialDefense,outputSpeed);
 		outSpecialAttack.value = outSpecialAttack.value.concat("+");
+		specialAttackNatureValue = 1.1;
 		outputAttack.value = outputAttack.value.concat("-");
+		attackNatureValue = .9;
 	}
 	
 	if(nature.value == "mild"){
 		containsPlusMinus(outputAttack,outputDefense,outSpecialAttack,outputSpecialDefense,outputSpeed);
 		outSpecialAttack.value = outSpecialAttack.value.concat("+");
+		specialAttackNatureValue = 1.1;
 		outputDefense.value = outputDefense.value.concat("-");
+		defenseNatureValue = .9;
 	}
 	
 	if(nature.value == "rash"){
 		containsPlusMinus(outputAttack,outputDefense,outSpecialAttack,outputSpecialDefense,outputSpeed);
 		outSpecialAttack.value = outSpecialAttack.value.concat("+");
+		specialAttackNatureValue = 1.1;
 		outputSpecialDefense.value = outputSpecialDefense.value.concat("-");
+		specialDefenseNatureValue = .9;
 	}
 	
 	if(nature.value == "quiet"){
 		containsPlusMinus(outputAttack,outputDefense,outSpecialAttack,outputSpecialDefense,outputSpeed);
 		outSpecialAttack.value = outSpecialAttack.value.concat("+");
+		specialAttackNatureValue = 1.1;
 		outputSpeed.value = outputSpeed.value.concat("-");
+		speedNatureValue = .9;
 	}
 	
 	if(nature.value == "lonely"){
 		containsPlusMinus(outputAttack,outputDefense,outSpecialAttack,outputSpecialDefense,outputSpeed);
 		outputAttack.value = outputAttack.value.concat("+");
+		attackNatureValue = 1.1;
 		outputDefense.value = outputDefense.value.concat("-");
+		defenseNatureValue = .9;
 	}
 	
 	if(nature.value == "brave"){
 		containsPlusMinus(outputAttack,outputDefense,outSpecialAttack,outputSpecialDefense,outputSpeed);
 		outputAttack.value = outputAttack.value.concat("+");
+		attackNatureValue = 1.1;
 		outputSpeed.value = outputSpeed.value.concat("-");
+		speedNatureValue = .9;
 	}
 	
 	if(nature.value == "adamant"){
 		containsPlusMinus(outputAttack,outputDefense,outSpecialAttack,outputSpecialDefense,outputSpeed);
 		outputAttack.value = outputAttack.value.concat("+");
+		attackNatureValue = 1.1;
 		outSpecialAttack.value = outSpecialAttack.value.concat("-");
+		specialAttackNatureValue = .9;
 	}
 	
 	if(nature.value == "naughty"){
 		containsPlusMinus(outputAttack,outputDefense,outSpecialAttack,outputSpecialDefense,outputSpeed);
 		outputAttack.value = outputAttack.value.concat("+");
+		attackNatureValue = 1.1;
 		outputSpecialDefense.value = outputSpecialDefense.value.concat("-");
+		specialDefenseNatureValue = .9;
 	}
 	
 	if(nature.value == "bold"){
 		containsPlusMinus(outputAttack,outputDefense,outSpecialAttack,outputSpecialDefense,outputSpeed);
 		outputDefense.value = outputDefense.value.concat("+");
+		defenseNatureValue = 1.1;
 		outputAttack.value = outputAttack.value.concat("-");
+		attackNatureValue = .9;
 	}
 	
 	if(nature.value == "relaxed"){
 		containsPlusMinus(outputAttack,outputDefense,outSpecialAttack,outputSpecialDefense,outputSpeed);
 		outputDefense.value = outputDefense.value.concat("+");
+		defenseNatureValue = 1.1;
 		outputSpeed.value = outputSpeed.value.concat("-");
+		speedNatureValue = .9;
 	}
 	
 	if(nature.value == "impish"){
 		containsPlusMinus(outputAttack,outputDefense,outSpecialAttack,outputSpecialDefense,outputSpeed);
 		outputDefense.value = outputDefense.value.concat("+");
+		defenseNatureValue = 1.1;
 		outSpecialAttack.value = outSpecialAttack.value.concat("-");
+		specialAttackNatureValue = .9;
 	}
 	
 	if(nature.value == "lax"){
 		containsPlusMinus(outputAttack,outputDefense,outSpecialAttack,outputSpecialDefense,outputSpeed);
 		outputDefense.value = outputDefense.value.concat("+");
+		defenseNatureValue = 1.1;
 		outputSpecialDefense.value = outputSpecialDefense.value.concat("-");
+		specialDefenseNatureValue = .9;
 	}
 	
 	if(nature.value == "timid"){
 		containsPlusMinus(outputAttack,outputDefense,outSpecialAttack,outputSpecialDefense,outputSpeed);
 		outputSpeed.value = outputSpeed.value.concat("+");
+		speedNatureValue = 1.1;
 		outputAttack.value = outputAttack.value.concat("-");
+		attackNatureValue = .9;
 	}
 	
 	if(nature.value == "hasty"){
 		containsPlusMinus(outputAttack,outputDefense,outSpecialAttack,outputSpecialDefense,outputSpeed);
 		outputSpeed.value = outputSpeed.value.concat("+");
+		speedNatureValue = 1.1;
 		outputDefense.value = outputDefense.value.concat("-");
+		defenseNatureValue = .9;
 	}
 	
 	if(nature.value == "jolly"){
 		containsPlusMinus(outputAttack,outputDefense,outSpecialAttack,outputSpecialDefense,outputSpeed);
 		outputSpeed.value = outputSpeed.value.concat("+");
+		speedNatureValue = 1.1;
 		outSpecialAttack.value = outSpecialAttack.value.concat("-");
+		specialAttackNatureValue = .9;
 	}
 	
 	if(nature.value == "naive"){
 		containsPlusMinus(outputAttack,outputDefense,outSpecialAttack,outputSpecialDefense,outputSpeed);
 		outputSpeed.value = outputSpeed.value.concat("+");
+		speedNatureValue = 1.1;
 		outputSpecialDefense.value = outputSpecialDefense.value.concat("-");
+		specialDefenseNatureValue = .9;
 	}
 	
 	if(nature.value == "calm"){
 		containsPlusMinus(outputAttack,outputDefense,outSpecialAttack,outputSpecialDefense,outputSpeed);
 		outputSpecialDefense.value = outputSpecialDefense.value.concat("+");
+		specialDefenseNatureValue = 1.1;
 		outputAttack.value = outputAttack.value.concat("-");
+		attackNatureValue = .9;
 	}
 	
 	if(nature.value == "gentle"){
 		containsPlusMinus(outputAttack,outputDefense,outSpecialAttack,outputSpecialDefense,outputSpeed);
 		outputSpecialDefense.value = outputSpecialDefense.value.concat("+");
+		specialDefenseNatureValue = 1.1;
 		outputDefense.value = outputDefense.value.concat("-");
+		defenseNatureValue = .9;
 	}
 	
 	if(nature.value == "sassy"){
 		containsPlusMinus(outputAttack,outputDefense,outSpecialAttack,outputSpecialDefense,outputSpeed);
 		outputSpecialDefense.value = outputSpecialDefense.value.concat("+");
+		specialDefenseNatureValue = 1.1;
 		outputSpeed.value = outputSpeed.value.concat("-");
+		speedNatureValue = .9;
 	}
 	
 	if(nature.value == "careful"){
 		containsPlusMinus(outputAttack,outputDefense,outSpecialAttack,outputSpecialDefense,outputSpeed);
 		outputSpecialDefense.value = outputSpecialDefense.value.concat("+");
+		specialDefenseNatureValue = 1.1;
 		outSpecialAttack.value = outSpecialAttack.value.concat("-");
+		specialAttackNatureValue = .9;
 	}
 }
 
@@ -570,6 +673,34 @@ if(spe && nspD)
 	
 }
 
+function calcStat(baseStat,ev,iv,level,nature){
+	
+		
+	//var finalValue = ((((iv + 2 * baseStat + (ev/4))*level/100) + 5) *nature);
+
+	return finalValue;
+}
+
+function calcHpStat(baseStat,ev,iv,level){
+	
+	console.log("");
+	console.log(baseStat);
+	console.log(ev);
+	console.log(iv);
+	console.log(level);
+	
+	var multiplier = 2 * baseStat;
+	var m = ev/4
+	var l = level/100;
+	var finalValue = (iv+multiplier +m);
+	console.log(finalValue);
+	
+	 finalValue = (((iv+multiplier +m)*l) + 10 +level);
+	
+	console.log(finalValue);
+
+	return finalValue;
+}
 
 
 </script>
