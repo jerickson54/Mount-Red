@@ -15,7 +15,8 @@
 
 <jsp:include page="/header.jsp" />
 <body>
-Default Pokemans.
+<img src="http://orig13.deviantart.net/f52b/f/2011/251/8/6/on_top_of_mt__silver____by_mewasakox-d499em0.png" 
+style="width:100%;height:100%;">
 
 
 

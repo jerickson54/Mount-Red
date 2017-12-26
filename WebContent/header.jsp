@@ -66,7 +66,7 @@ background: #000000 url(http://orig13.deviantart.net/f52b/f/2011/251/8/6/on_top_
 			</li>
 				
 			<li>
-				<a href = "#"> Teams</a>
+				<a href = "teamDisplay.jsp"> Teams</a>
 			</li>
 			
 			<li>

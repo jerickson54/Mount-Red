@@ -78,7 +78,7 @@
 
 
 <label> Nickname
-<input type = "text" name = "nickname" id = "nickname" />
+<input type = "text" name = "nickname" id = "nickname" value = "${currentPoke.identifier}"/>
 </label>
 
 
@@ -311,11 +311,14 @@ Remaining EV
 </label>
 
 <!--  this is temp
-May actually want to call js function -->
+May actually want to call js function 
 <form action = 'controller?action=addToTeam' method = 'post'>
  <input type = "submit" value = "Add To Team" />
 
 </form>
+-->
+
+<button class="w3-btn w3-aqua w3-border" id = "save" style = "width:100px;">SAVE</button>
 
 
 <!-- 
@@ -333,6 +336,8 @@ $(document).ready(function() {
     $('.js-example-basic-single').select2();
     //templateResult: formatPokemon
 });
+
+
 
 var totalStats = document.getElementById("totalStats");
 var canChange = true;
@@ -649,6 +654,34 @@ outputSpeed.oninput = function(){
 	  sliderSpecialDefense.diabled=false;
 	  sliderSpeed.diabled=false;}
 }
+
+
+document.getElementById("save").onclick = function(){
+	//console.log("Yo");
+	//time to decide what data i need when i actually battle
+	
+	//hp attk, def, spAttk, spDef, spe
+	//ability
+	//nickname
+	//level
+	//attacks
+	
+	var form = "cookie" + String(document.getElementById("nickname").value) + "=" 
+	+ String(document.getElementById("pokemonName").value) + "," + String(document.getElementById("ability").value) + ","
+	+ String($('#items').val()) + ","
+	+ String(finalHp.value) + ","+String(finalAttack.value)+ ","+String(finalDefense.value) + ","+String(finalSpecialAttack.value)+","
+	+String(finalSpecialDefense.value)+ ","+String(finalSpeed.value)+ ","+
+	String($('#attackOne').val()) + "," + String($('#attackTwo').val()) +"," + String($('#attackThree').val()) +","  +
+	String($('#attackFour').val()) + ";";
+	
+	//console.log(form);
+	document.cookie = form;
+	//alert(document.cookie);
+	 window.location.href = "teamDisplay.jsp";
+	
+}
+
+
 
 var nature = document.getElementById("nature");
 nature.oninput = function(){
