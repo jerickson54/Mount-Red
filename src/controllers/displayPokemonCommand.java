@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import PokemonDB.Attack;
 import PokemonDB.Pokemon;
 import PokemonDB.PokemonDAO;
+import PokemonDB.item;
+import PokemonDB.itemDAO;
 import PokemonDB.learnableMovesDAO;
 
 public class displayPokemonCommand implements Command {
@@ -26,6 +28,8 @@ public class displayPokemonCommand implements Command {
 		//System.out.println(Integer.parseInt(id));
 		List<Attack> currentAttacks = learnableMovesDAO.getLearnableMoves(Integer.parseInt(id));
 		request.getSession().setAttribute("currentAttacks",currentAttacks);
+		List<item> allItems = itemDAO.getEverything();
+		request.getSession().setAttribute("allItems", allItems);
 		
 		/*
 		for(Attack a: currentAttacks)

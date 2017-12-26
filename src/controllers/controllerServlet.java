@@ -28,6 +28,7 @@ public class controllerServlet extends HttpServlet {
 		commands = new HashMap<String, Command>();
 		commands.put("buildTeam", new buildTeamCommand());
 		commands.put("pokemonDisplay", new displayPokemonCommand());
+		commands.put("addToTeam", new addToTeamCommand());
 		
 
 	}

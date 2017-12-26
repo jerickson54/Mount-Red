@@ -96,7 +96,11 @@
 </label>
 
 <label> Item
-<input type = "text" name = "item"/>
+<select class="js-example-basic-single" name = "items" id = "items">
+<c:forEach items = "${allItems}" var ="i">
+<option value = "${i.name}"> ${i.name}</option>
+</c:forEach>
+</select>
 </label>
 
 
@@ -306,6 +310,12 @@ Remaining EV
 
 </label>
 
+<!--  this is temp
+May actually want to call js function -->
+<form action = 'controller?action=addToTeam' method = 'post'>
+ <input type = "submit" value = "Add To Team" />
+
+</form>
 
 
 <!-- 
