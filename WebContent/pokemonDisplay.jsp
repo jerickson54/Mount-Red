@@ -60,15 +60,15 @@
 <div class = "container-fluid">
 
 <c:if test = "${currentPoke.id >99}">
-<img src = "https://www.serebii.net/sunmoon/pokemon/${currentPoke.id}.png"/>
+<img src = "https://www.serebii.net/sunmoon/pokemon/${currentPoke.id}.png" id = "img"/>
 </c:if>
 
 <c:if test = "${currentPoke.id < 10}">
-<img src = "https://www.serebii.net/sunmoon/pokemon/00${currentPoke.id}.png"/>
+<img src = "https://www.serebii.net/sunmoon/pokemon/00${currentPoke.id}.png" id = "img"/>
 </c:if>
 
 <c:if test = "${currentPoke.id <100 && currentPoke.id > 9}">
-<img src = "https://www.serebii.net/sunmoon/pokemon/0${currentPoke.id}.png"/>
+<img src = "https://www.serebii.net/sunmoon/pokemon/0${currentPoke.id}.png" id = "img"/>
 </c:if>
 
 
@@ -199,6 +199,10 @@
 
 </select>
 
+</label>
+
+<label> Team
+<input type = "text" name = "teamName" id = "teamName"/>
 </label>
 
 <label>
@@ -666,18 +670,56 @@ document.getElementById("save").onclick = function(){
 	//level
 	//attacks
 	
-	var form = "cookie" + String(document.getElementById("nickname").value) + "=" 
-	+ String(document.getElementById("pokemonName").value) + "," + String(document.getElementById("ability").value) + ","
+	var c = document.cookie.split(";");
+	var allTeamNames = "";
+	 
+	 for(var i = 0; i < c.length; ++i)
+		 allTeamNames+=c[i].substring(0,c[i].search("=")) + ";";
+		 
+	console.log(allTeamNames);
+		
+	//append cookie to existing team
+	if(allTeamNames.includes(String(document.getElementById("teamName").value))){
+		for(var i = 0; i < c.length; ++i){
+		if(c[i].substring(0,c[i].search("=")) === document.getElementById("teamName").value){
+			
+			c[i] += "@" + String(document.getElementById("pokemonName").value) + "," + document.getElementById("img").src + " ," + String(document.getElementById("ability").value) + ","
+			+ String($('#items').val()) + ","
+			+ String(finalHp.value) + ","+String(finalAttack.value)+ ","+String(finalDefense.value) + ","+String(finalSpecialAttack.value)+","
+			+String(finalSpecialDefense.value)+ ","+String(finalSpeed.value)+ ","+
+			String($('#attackOne').val()) + "," + String($('#attackTwo').val()) +"," + String($('#attackThree').val()) +","  +
+			String($('#attackFour').val());
+			
+			document.cookie = c[i];
+		}
+			
+		
+			
+		
+		}
+		
+	}
+	
+	//make a new cookie case
+	else{
+
+	
+	var form = String(document.getElementById("teamName").value) + "=" 
+	+ "@" + String(document.getElementById("pokemonName").value) + "," + document.getElementById("img").src+ " ," + String(document.getElementById("ability").value) + ","
 	+ String($('#items').val()) + ","
 	+ String(finalHp.value) + ","+String(finalAttack.value)+ ","+String(finalDefense.value) + ","+String(finalSpecialAttack.value)+","
 	+String(finalSpecialDefense.value)+ ","+String(finalSpeed.value)+ ","+
 	String($('#attackOne').val()) + "," + String($('#attackTwo').val()) +"," + String($('#attackThree').val()) +","  +
-	String($('#attackFour').val()) + ";";
+	String($('#attackFour').val()) +  ";";
+	
+	document.cookie = form;
+	
+	}
 	
 	//console.log(form);
-	document.cookie = form;
-	//alert(document.cookie);
-	 window.location.href = "teamDisplay.jsp";
+	
+	
+	window.location.href = "teamDisplay.jsp";
 	
 }
 

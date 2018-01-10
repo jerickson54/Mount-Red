@@ -16,6 +16,8 @@
 
 <h1> TEAMS</h1>
 
+
+
 <input id = "clear" type = "button" value = "Clear All"/>
 
 <script>
@@ -42,7 +44,26 @@ document.getElementById("clear").onclick = function(){
 
 
  function loadTeams(){
-	 console.log(document.cookie);
+	 //console.log(document.cookie);
+	 /*
+	 var c = document.cookie.split(";");
+	 
+	 for(var i = 0; i < c.length; ++i){
+		 var curr = c[i].split(",");
+		 for(var x = 0; x < curr.length;++x)
+			 console.log(curr[x]);
+		 
+	 }
+	 */
+	 
+	 var c = document.cookie.split(";");
+	 for(var i = 0; i < c.length;++i){
+		var curr = c[i].split("@"); 
+	 
+		 for(var x = 0;x<curr.length;++x)
+			console.log(curr[x]);
+	 }
+	 
  }
 
 </script>
