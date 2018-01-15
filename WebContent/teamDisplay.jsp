@@ -11,11 +11,22 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 </head>
 <jsp:include page="/header.jsp" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <body onload = "loadTeams()">
 
 
-<h1> TEAMS</h1>
+<h1> TEAMS!!!</h1>
 
+<div class="w3-container w3-deep-purple">
+<p id = "team1"></p>
+<img id ="img1" src = "">
+</div>
+
+<div id = "temp">
+
+</div>
+  
+  
 
 
 <input id = "clear" type = "button" value = "Clear All"/>
@@ -60,11 +71,51 @@ document.getElementById("clear").onclick = function(){
 	 for(var i = 0; i < c.length;++i){
 		var curr = c[i].split("@"); 
 	 
-		 for(var x = 0;x<curr.length;++x)
-			console.log(curr[x]);
+		 for(var x = 0;x<curr.length;++x){
+			 console.log(curr[x]);
+			 var div = "<div class=\"w3-container w3-deep-purple\">";
+			 
+			 var indiPoke = curr[x].split(",")
+				 //document.getElementById("team1").innerHTML = indiPoke[0];
+			 	//document.getElementById("img1").src = indiPoke[1];
+			 	if(!(indiPoke[0].includes("="))){
+			 	div += "<p>";
+			 	div += indiPoke[0];
+			 	div += "</p>";
+			 	div += "<img src = \" ";
+			 	div += indiPoke[1];
+			 	div+= "\" > </div>";
+			 	//div += "</div>";
+			 	console.log(div);
+			 	create(div);
+			 	loadDiv(div);
+			 	}
+			 	
+			 
+		 }
+			
 	 }
 	 
+	
+	 
  }
+ 
+ function create(htmlStr) {
+	    var frag = document.createDocumentFragment(),
+	        temp = document.createElement('div');
+	    temp.innerHTML = htmlStr;
+	    while (temp.firstChild) {
+	        frag.appendChild(temp.firstChild);
+	      }
+	        return frag;
+ }
+
+ function loadDiv(htmlStr){
+	    var fragment = create(htmlStr); 
+
+	   document.getElementById("temp").appendChild(fragment);
+ }
+	   
 
 </script>
 
