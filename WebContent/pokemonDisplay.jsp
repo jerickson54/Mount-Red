@@ -675,13 +675,19 @@ document.getElementById("save").onclick = function(){
 	 
 	 for(var i = 0; i < c.length; ++i)
 		 allTeamNames+=c[i].substring(0,c[i].search("=")) + ";";
-		 
-	console.log(allTeamNames);
+	
+	
+	//console.log(allTeamNames);
 		
 	//append cookie to existing team
 	if(allTeamNames.includes(String(document.getElementById("teamName").value))){
 		for(var i = 0; i < c.length; ++i){
-		if(c[i].substring(0,c[i].search("=")) === document.getElementById("teamName").value){
+			//this case only works for the first string
+		//console.log(i + c[i]);
+		//if(c[i].substring(0,c[i].search("=")) === document.getElementById("teamName").value){
+			if(c[i].includes(document.getElementById("teamName").value)){
+			
+			console.log("inside");
 			
 			c[i] += "@" + String(document.getElementById("pokemonName").value) + "," + document.getElementById("img").src + " ," + String(document.getElementById("ability").value) + ","
 			+ String($('#items').val()) + ","
@@ -690,6 +696,7 @@ document.getElementById("save").onclick = function(){
 			String($('#attackOne').val()) + "," + String($('#attackTwo').val()) +"," + String($('#attackThree').val()) +","  +
 			String($('#attackFour').val());
 			
+			//console.log(c[i]);
 			document.cookie = c[i];
 		}
 			
@@ -716,7 +723,7 @@ document.getElementById("save").onclick = function(){
 	
 	}
 	
-	//console.log(form);
+	//console.log(document.cookie);
 	
 	
 	window.location.href = "teamDisplay.jsp";

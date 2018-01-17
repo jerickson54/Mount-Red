@@ -15,12 +15,9 @@
 <body onload = "loadTeams()">
 
 
-<h1> TEAMS!!!</h1>
+<h1> TEAMS</h1>
 
-<div class="w3-container w3-deep-purple">
-<p id = "team1"></p>
-<img id ="img1" src = "">
-</div>
+
 
 <div id = "temp">
 
@@ -30,6 +27,9 @@
 
 
 <input id = "clear" type = "button" value = "Clear All"/>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+</script>
 
 <script>
 
@@ -68,31 +68,43 @@ document.getElementById("clear").onclick = function(){
 	 */
 	 
 	 var c = document.cookie.split(";");
+	 var comparisonTeam = "";
 	 for(var i = 0; i < c.length;++i){
 		var curr = c[i].split("@"); 
 	 
 		 for(var x = 0;x<curr.length;++x){
 			 console.log(curr[x]);
-			 var div = "<div class=\"w3-container w3-deep-purple\">";
 			 
-			 var indiPoke = curr[x].split(",")
-				 //document.getElementById("team1").innerHTML = indiPoke[0];
-			 	//document.getElementById("img1").src = indiPoke[1];
-			 	if(!(indiPoke[0].includes("="))){
-			 	div += "<p>";
-			 	div += indiPoke[0];
-			 	div += "</p>";
-			 	div += "<img src = \" ";
-			 	div += indiPoke[1];
-			 	div+= "\" > </div>";
-			 	//div += "</div>";
-			 	console.log(div);
-			 	create(div);
-			 	loadDiv(div);
-			 	}
+			
+			 
+			 var indiPoke = curr[x].split(",");
+			 
+				//console.log(indiPoke[0]);
+				 if(indiPoke[0].includes("=")){
+					 comparisonTeam = indiPoke[0].substr(0,indiPoke[0].length-1).replace(/\s/g, '');
+					 if((i%2) == 0){
+					 var thing = '<div id = "' + comparisonTeam+ '" style = "display:inline-block;"class =  "w3-container w3-deep-purple"> <h1> ' 
+					 + comparisonTeam + ' </h1></div>';
+					 }
+					 else{
+						 var thing = '<div id = "' + comparisonTeam+ '" style = "display:inline-block;"class =  "w3-container w3-teal"> <h1> ' 
+						 + comparisonTeam + ' </h1></div>'; 
+					 }
+					 $('#temp').append(thing);
+					 //console.log(thing);
+					// console.log(comparisonTeam);
+					// $('#temp').append("<p> Get naked rn!</p>");
+				 }
+				 else
+				$('#' + comparisonTeam).append('<p>' + String(indiPoke[0]) + '</p> <img src = "' + String(indiPoke[1]) + '"/>');
+				 
+			 
+			 //console.log("DAHHHHHH");
+				
+		 }
 			 	
 			 
-		 }
+		 
 			
 	 }
 	 
@@ -117,6 +129,42 @@ document.getElementById("clear").onclick = function(){
  }
 	   
 
+ 
+ /*
+ 
+ 	 for(var x = 0;x<curr.length;++x){
+			 //console.log(curr[x]);
+			var div = "";
+			 
+			 var indiPoke = curr[x].split(",");
+				 //document.getElementById("team1").innerHTML = indiPoke[0];
+			 	//document.getElementById("img1").src = indiPoke[1];
+			 	
+			 	if(indiPoke[0].includes("=")){
+			 		 div += "<div class=\"w3-container w3-deep-purple\">";
+			 		 comparisonTeam = indiPoke[0];
+			 	}
+			 	
+			 	if(!(indiPoke[0].includes("="))){
+			 	div += "<p>";
+			 	div += indiPoke[0];
+			 	div += "</p>";
+			 	div += "<img src = \" ";
+			 	div += indiPoke[1];
+			 	div+= "\" > </div>";
+			 	//div += "</div>";
+			 	console.log(div);
+			 	create(div);
+			 	loadDiv(div);
+			 	}
+			 	
+			 	if(comparisonTeam != indiPoke[0])
+			 		div += "</div>";
+			 		
+ */
+ 
+ 
+ 
 </script>
 
 </body>
